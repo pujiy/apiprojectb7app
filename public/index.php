@@ -48,7 +48,7 @@ require '../vendor/phpmailer/phpmailer/src/SMTP.php';
 				$mail->Host = 'smtp.gmail.com';
 				$mail->SMTPAuth = true;
 				$mail->Username = 'apayah90@gmail.com';
-				$mail->Password = 'terserah96';
+				$mail->Password = '*****';
 				$mail->SMTPSecure = 'tls';
 				$mail->Port = 587;  
 				$mail->setFrom("verify@b7app.com", "noreply@b7appverify.com");
