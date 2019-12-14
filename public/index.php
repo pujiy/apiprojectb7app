@@ -17,7 +17,9 @@ require '../vendor/phpmailer/phpmailer/src/SMTP.php';
      'displayErrorDetails' => true ]
      ]);
      
-		 
+
+
+		
      //registering new user
      $app->post('/register', function(Request $request, Response $response )
      {
@@ -214,6 +216,49 @@ require '../vendor/phpmailer/phpmailer/src/SMTP.php';
          $users = $db->getAllUsers();
          $response->getBody()->write(json_encode(array("users" => $users)));
      });
+	 
+	 
+	 //getting all white form with status open, on process, close
+     $app->get('/whiteformstatus', function (Request $request, Response $response) {
+         $open = 'open';
+		 $onprocess = 'on process';
+		 $close = 'close';
+		 
+         $db = new DbOperation();
+         $users = $db->getAllStatusWhiteForm($open, $onprocess, $close);
+         $response->getBody()->write(json_encode(array("whiteformstatus" => $users)));
+     });
+	 
+	  //getting all red form with status open, on process, close
+     $app->get('/redformstatus', function (Request $request, Response $response) {
+         $open = 'open';
+		 $onprocess = 'on process';
+		 $close = 'close';
+		 
+         $db = new DbOperation();
+         $users = $db->getAllStatusRedForm($open, $onprocess, $close);
+         $response->getBody()->write(json_encode(array("redformstatus" => $users)));
+     });
+	 
+	 
+	 
+	 
+	 //getting all white form with status close
+     $app->get('/whiteform/{close}', function (Request $request, Response $response) {
+         $close = $request->getAttribute('close');
+         $db = new DbOperation();
+         $users = $db->getAllCloseWhiteForm($close);
+         $response->getBody()->write(json_encode(array("whiteformclose" => $users)));
+     });
+	 
+	 //getting all red form with status close
+     $app->get('/redform/{close}', function (Request $request, Response $response) {
+         $close = $request->getAttribute('close');
+         $db = new DbOperation();
+         $users = $db->getAllCloseWhiteForm($close);
+         $response->getBody()->write(json_encode(array("redformclose" => $users)));
+     });
+	 
 
      // getting all users leaderboard
      $app->get('/usersleaderboard', function (Request $request, Response $response) {
